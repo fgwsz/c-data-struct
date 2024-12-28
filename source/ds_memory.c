@@ -1,22 +1,25 @@
 #include<stdlib.h>//malloc free
 #include<string.h>//memset
-#define MY_MALLOC_RETRY_COUNT 10
-void* my_malloc(size_t size){
+#include"ds_memory.h"
+//内存分配尝试的上限次数
+#define _DS_ALLOC_TRY_COUNT 10
+void* ds_alloc(size_t size){
     if(size==0){
         return NULL;
     }
     void* result=NULL;
     size_t count=0;
-    for(;count<MY_MALLOC_RETRY_COUNT;++count){
+    //进行有限次内存分配尝试,全部失败之后返回NULL
+    for(;count<_DS_ALLOC_TRY_COUNT;++count){
         result=malloc(size);
         if(result!=NULL){
             memset(result,0,size);
             break;
         }
     }
-    count<MY_MALLOC_RETRY_COUNT?result:NULL;
+    return count<_DS_ALLOC_TRY_COUNT?result:NULL;
 }
-void my_free(void* pointer){
+void ds_free(void* pointer){
     if(pointer!=NULL){
         free(pointer);
     }
