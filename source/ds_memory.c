@@ -4,9 +4,7 @@
 //内存分配尝试的上限次数
 #define _DS_ALLOC_TRY_COUNT 10
 void* ds_alloc(size_t size){
-    if(size==0){
-        return NULL;
-    }
+    size=size==0?1:size;//size为0时尝试分配最小的内存块
     void* result=NULL;
     size_t count=0;
     //进行有限次内存分配尝试,全部失败之后返回NULL

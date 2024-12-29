@@ -11,6 +11,12 @@ static void _test_ds_memory(void){
     printf("number_2{pointer:%p,value:%d}\n",number_2,*number_2);
     ds_free(number_1);
     ds_free(number_2);
+
+    struct Empty{};
+    printf("sizeof(struct Empty)=%ld\n",sizeof(struct Empty));
+    struct Empty* object=DS_ALLOC(struct Empty);
+    printf("object{pointer:%p}\n",object);
+    ds_free(object);
 }
 int main(void){
     _test_ds_memory();
